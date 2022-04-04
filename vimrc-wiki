@@ -1,0 +1,33 @@
+if has('win32')
+    let $VIMPATH = "~/vimfiles/"
+else
+    let $VIMPATH = "~/.vim/"
+endif
+
+source $VIMPATH/vimrc-common
+
+colorscheme gotham
+
+set title " Enable setting Title.
+set titlestring=Notes:\ %F titlelen=70
+
+" VimWiki
+let g:vimwiki_list = [{
+    \ 'path': '.',
+    \ 'syntax': 'markdown',
+    \ 'ext': '.md'}]
+
+" Vimwiki sets these without the leader key by default, which gets in the way of automatic indenting.
+nmap <leader>= <Plug>VimwikiAddHeaderLevel
+nmap <leader>- <Plug>VimwikiRemoveHeaderLevel
+
+" Insert current date & label.
+nmap <silent><leader>d :put =strftime(\"%Y-%m-%d: %A, %B %d %Y\")<CR>$
+
+" Bold visual selection.
+vmap <silent><leader>b :s/\%V.*\%V./**&**/<CR>
+" Unbold visual selection.
+vmap <silent><C-\> :s/*//g<CR>
+
+" Delete completed tasks.
+vmap <silent><leader>dct :g/- \[X\]/d<CR>

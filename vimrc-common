@@ -1,0 +1,132 @@
+" Disable Vi compatibility mode. Vim is improved!
+set nocompatible
+
+" Don't use 'easy mode', I like my vim hardcore.
+set noinsertmode
+
+" Terminal
+if $TERM == "xterm-256color"
+  set t_Co=256
+endif
+
+"  GUI
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=DejaVu\ Sans\ Mono
+  elseif has("gui_win32")
+    set guifont=DejaVu\ Sans\ Mono
+  endif
+endif
+
+" Stop beeping when hitting Esc too many times.
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
+
+" =======
+" Plugins
+" =======
+" NERDTree Filesystem Navigator.
+let NERDTreeQuitOnOpen=1 " Close Nerdtree after opening a file.
+let NERDTreeShowLineNumbers=1 " Enable line numbers.
+let g:NERDTreeDirArrows=0
+"let NERDTreeCascadeOpenSingleChildDir=0 " Do not u
+autocmd FileType nerdtree setlocal relativenumber " Use relative line numbers.
+" TypeScript filetype.
+let g:typescript_indent_disable=1 " Disable Typescript indent rules. 
+" PHP
+let g:loaded_matchparen = 1 " Improves PHP syntax highlight performance.
+
+" ======
+" Config
+" ======
+filetype plugin on
+syntax on                       " Enable highlighting.
+colorscheme default             " Default colorscheme.
+syntax sync minlines=100
+syntax sync maxlines=240
+set fileformat=unix
+set synmaxcol=800
+" Files
+set clipboard=unnamedplus       " Use system clipboard.
+if has('win32')
+   set clipboard=unnamed        " Fix windows clipboard issues.
+endif
+set encoding=utf8               " Internal character encoding.
+set noswapfile                  " Disable swap files.
+" Indenting
+filetype indent on
+set autoindent                  " Indent new lines to correct level.
+set expandtab                   " On pressing tab, insert 4 spaces
+set shiftwidth=4                " when indenting with '>', use 4 spaces width
+set tabstop=4                   " show existing tab with 4 spaces width
+" Interface
+set backspace=start,indent,eol  " Backspace over start of insert, autoindent, and line breaks.
+set guioptions=ic               " Hide GUI controls.
+set nowrap                      " Do not wrap lines.
+set ruler                       " Show column numbers.
+set number                      " Show line numbers.
+set relativenumber              " Use relative line numbers.
+set ignorecase                  " Searches are case insensitive.
+
+
+" =========
+" Shortcuts
+" =========
+let mapleader = "\\"
+
+" Normal Mode
+" ===========
+
+" Toggle whitespace characters.
+nnoremap <leader>tw :set list!<CR>
+
+" Display open buffers
+nnoremap <leader>b :CtrlPMRU<CR>
+
+" Open Nerdtree
+nnoremap <silent>so :NERDTreeToggle<CR>
+
+" Split window vertically and go to new pane.
+nnoremap <leader>v <C-w>v <C-w>l
+
+" Alt+J/K: Move cursor 10 lines instead of 1.
+nnoremap <A-j> 10j
+nnoremap <A-k> 10k
+nnoremap <C-j> 5j
+nnoremap <C-k> 5k
+
+" Alt+Shift+J/K: Move current line up or down by 1.
+nnoremap <A-J> :m .+1<CR>
+nnoremap <A-K> :m .-2<CR>
+
+" Set `indent` foldmethod.
+nnoremap <leader>fmi :set foldmethod=indent<CR>
+
+" Strikeout current line.
+nnoremap <leader>st I~~<ESC>A~~<ESC>:noh<CR>
+nnoremap <leader>ust :s/^\(\s*\)\~\~ /\1/<CR>:s/ \~\~\s*$//<CR>:noh<CR>
+
+" Visual Mode 
+" ===========
+" Add a line break between each line.
+vnoremap <leader>g :'<,'>s/\n/\r\r/<CR>
+
+" Sort selection.
+vnoremap <leader>s :'<,'>sort<CR>
+
+" Alt+J/K: Move cursor 10 lines instead of 1.
+vnoremap <A-j> 10j
+vnoremap <A-k> 10k
+vnoremap <C-j> 5j
+vnoremap <C-k> 5k
+
+" Alt+Shift+J/K: Move current line up or down by 1.
+vnoremap <A-J> :m '>+1<CR>gv=gv
+vnoremap <A-K> :m '<-2<CR>gv=gv
+
+" Delete without yanking.
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" Replace currently selected text with default register yanking it.
+vnoremap p "_dP

@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+$dateHeading = sprintf("# %s\n\n", date("Y-m-d: l, F d Y"));
+$templatePath = $_SERVER['HOME'] . '/vimwiki/diary/template/' . date('l') . '.md';
+
+if (file_exists($templatePath)) {
+    // Print link to yesterday's diary.
+    echo sprintf("[Yesterday](%s.md)\n\n", date('Y-m-d', strtotime("yesterday")));
+
+    // Print date heading.
+    echo $dateHeading;
+
+    // Print template .
+    echo file_get_contents($templatePath);
+
+} else {
+    // Print date heading and nothing else.
+    echo $dateHeading;
+}
