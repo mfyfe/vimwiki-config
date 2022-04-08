@@ -14,7 +14,8 @@ if has("gui_running")
   if has("gui_gtk2")
     set guifont=DejaVu\ Sans\ Mono
   elseif has("gui_win32")
-    set guifont=DejaVu\ Sans\ Mono
+    set guifont=BitstreamVeraSansMono\ NF:h10
+    "set guifont=DejaVu\ Sans\ Mono
   endif
 endif
 
@@ -105,6 +106,12 @@ nnoremap <leader>fmi :set foldmethod=indent<CR>
 " Strikeout current line.
 nnoremap <leader>st I~~<ESC>A~~<ESC>:noh<CR>
 nnoremap <leader>ust :s/^\(\s*\)\~\~ /\1/<CR>:s/ \~\~\s*$//<CR>:noh<CR>
+
+" Prevent x and the delete key from overriding what's in the clipboard.
+noremap x "_x
+noremap X "_x
+noremap <Del> "_x
+
 
 " Visual Mode 
 " ===========
