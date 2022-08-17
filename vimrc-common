@@ -78,6 +78,9 @@ let mapleader = "\\"
 " Normal Mode
 " ===========
 
+" Write file.
+nnoremap <leader>w :w<CR>
+
 " Toggle whitespace characters.
 nnoremap <leader>tw :set list!<CR>
 
